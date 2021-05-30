@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Service 별로 묶은 꾸러미(?) -->
+<beans>
+
+	<!-- dataSource -->
+	<bean id="sqlSessionFactory" class="kr.or.ddit.mybatis.OracleMyBatisSqlSessionFactory" />
+
+	<!-- Repository Layer -->
+	<bean id="memberDAO"  class="kr.or.ddit.dao.MemberDaoImpl" />
+<!-- 	<bean id="menuDAO2"  class="kr.or.ddit.dao.MenuDAOImpl2" /> -->
+	
+	
+	<!-- 가능 -->
+	<!-- 싱글톤 관련 : 태그에 의해 생기는 인스턴스는 1개 -->
+	<!-- Service layer -->
+	<bean id="memberService" class="kr.or.ddit.service.MemberServiceImpl">
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="memberDAO" ref-value="memberDAO" />
+	</bean>
+
+<!-- 	<bean id="menuService" class="kr.or.ddit.service.MenuServiceImpl"> -->
+<!-- 		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" /> -->
+<!-- 		<property name="menuDAO" ref-value="menuDAO2" /> -->
+<!-- 	</bean> -->
+	
+	
+</beans>

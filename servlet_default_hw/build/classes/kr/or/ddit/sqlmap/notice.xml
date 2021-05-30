@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<select id="selectNoticeByNno" resultType="noticevo">
+		SELECT
+			NNO 		nno
+			,TITLE 		title
+			,WRITER 	writer
+			,CONTENT 	content
+			,REGDATE 	regdate
+			,VIEWCNT 	viewCnt
+			,POINT 		point
+			,STARTDATE 	startDate
+			,ENDDATE 	endDate
+			,UPDATEDATE updateDate
+			,DIST 		dist
+		FROM NOTICE
+        WHERE 1=1
+       	AND NNO = #{nno}
+	</select>
+	
+	<select id="selectNotice" resultType="noticevo">
+		SELECT
+			NNO 		nno
+			,TITLE 		title
+			,WRITER 	writer
+			,CONTENT 	content
+			,REGDATE 	regdate
+			,VIEWCNT 	viewCnt
+			,POINT 		point
+			,STARTDATE 	startDate
+			,ENDDATE 	endDate
+			,UPDATEDATE updateDate
+			,DIST 		dist
+		FROM NOTICE
+        WHERE 1=1
+        <if test="title == null">
+        	AND TITLE = #{title}
+        </if>
+        <if test="content == null">
+        	AND CONTENT LIKE '%'||#{content}||'%' 
+        </if>
+        <if test="nno == null">
+        	AND NNO = #{nno}
+        </if>
+	</select>
+	
+	<select id="selectNoticeAll" resultType="noticevo">
+		SELECT
+			NNO 		nno
+			,TITLE 		title
+			,WRITER 	writer
+			,CONTENT 	content
+			,REGDATE 	regdate
+			,VIEWCNT 	viewCnt
+			,POINT 		point
+			,STARTDATE 	startDate
+			,ENDDATE 	endDate
+			,UPDATEDATE updateDate
+			,DIST 		dist
+		FROM NOTICE
+	</select>
+
+	
+	<insert id="insertNotice" parameterType="noticevo">
+		INSERT INTO NOTICE(
+			NNO 		
+			,TITLE 		
+			,WRITER 	
+			,CONTENT 	
+		)
+		VALUES(
+			#{nno}
+			,#{title}
+			,#{writer}
+			,#{content}
+		)
+	</insert>
+	
+	<update id="updateNotice" parameterType="noticevo">
+		UPDATE NOTICE
+		SET
+			TITLE = #{title}
+			,CONTENT = #{content}
+			,UPDATEDATE = SYSDATE
+		WHERE NNO = #{nno}
+	</update>
+	
+	<delete id="deleteNotice">
+		DELETE
+		FROM NOTICE
+		WHERE NNO = #{nno}
+	</delete>	
+</mapper>

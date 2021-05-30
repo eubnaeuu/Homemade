@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member-Mapper">
+
+	<select id="selectMemberById" parameterType="str" resultType="member">
+
+		SELECT
+			*
+		FROM MEMBER
+        WHERE ID = #{id}
+	</select>
+	
+	<select id="selectMember" resultType="member">
+		SELECT
+			ID 			 id
+			,PWD         pwd
+			,EMAIL       email
+			,PICTURE     picture
+			,ENABLED     enabled
+			,REGDATE     regDate
+			,PHONE       phone
+			,NAME        name
+			,REGISTER    register
+			,ADDRESS     address
+			,AUTHORITY   authority
+		FROM MEMBER
+        WHERE 1=1
+	</select>
+	
+	<select id="selectAllMember" resultType="member">
+		SELECT
+			*
+		FROM MEMBER
+	</select>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE MEMBER
+		SET
+			ID = #{id}
+        <if test="pwd == null">
+			,PWD = #{pwd}
+		</if>	
+        <if test="email == null">
+			,EMAIL = #{email}
+		</if>
+        <if test="picture == null">
+			,PICTURE = #{picture}
+		</if>	
+        <if test="enabled == null">
+			,ENABLED = #{enabled}
+		</if>	
+        <if test="regDate == null">
+			,REGDATE = #{regDate}
+		</if>	
+        <if test="phone == null">
+			,PHONE = #{phone}
+		</if>	
+        <if test="name == null">
+			,NAME = #{name}
+		</if>	
+        <if test="register == null">
+			,REGISTER = #{register}
+		</if>	
+        <if test="address == null">
+			,ADDRESS = #{address}
+		</if>	
+        <if test="authority == null">
+			,AUTHORITY = #{authority}
+		</if> 
+		WHERE ID = #{id}
+	</update>
+	
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER(
+			ID 			 
+			,PWD         
+			,EMAIL       
+			,PICTURE     
+			,ENABLED     
+			,REGDATE     
+			,PHONE       
+			,NAME        
+			,REGISTER    
+			,ADDRESS     
+			,AUTHORITY   
+		)
+		VALUES(
+			#{id} 			 
+			,#{pwd}         
+			,#{email}       
+			,#{picture}     
+			,#{enabled}     
+			,#{regDate}     
+			,#{phone}       
+			,#{name}        
+			,#{register}    
+			,#{address}     
+			,#{authority}
+		)
+	</insert>
+	
+	<delete id="deleteMember" parameterType="str">
+		DELETE
+		FROM MEMBER
+		WHERE ID = #{id}
+	</delete>	
+	
+</mapper>

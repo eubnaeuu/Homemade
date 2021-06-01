@@ -23,13 +23,35 @@ public class FrontServlet extends HttpServlet {
 
 
 	private void requestPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("-----[FrontServlet] requsetPro 시작-----");
+		System.out.println("-----[FrontServlet] requestPro 시작-----");
 		// 사용자 URI 검출
 		String command = request.getRequestURI(); // contextPath 포함
 		
 		if(command.indexOf(request.getContextPath())==0){
 			command = command.substring(request.getContextPath().length()); // /index.do
 		}
+		
+		
+		// 로그인 확인
+//		if(!command.contains("login")) {
+//			HttpSession session = request.getSession();
+//			MemberVO member = (MemberVO)session.getAttribute("loginUser");
+//			if(member==null) {
+//				response.setContentType("text/html;charset=utf-8");
+//				PrintWriter out = response.getWriter();
+//				out.println("<script>");
+//				out.println("alert('로그인은 필수입니다.');");
+//				out.println("location.href='/';");
+//				out.println("</script>");
+//				out.close();
+//				return;
+//			}
+//		}
+		
+		
+		
+		
+		
 		
 		// commandHandler 실행 (HandlerMapper 의뢰 / handler 할당)
 		Handler handler = null;
@@ -46,10 +68,11 @@ public class FrontServlet extends HttpServlet {
 					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); 	
 				}
 			} else {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST); // 404
+				response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404
 			}
 		} else {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500
+			
 		}
 		System.out.println("-----[FrontServlet] requsetPro 종료-----");
 	}
@@ -60,7 +83,7 @@ public class FrontServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		System.out.println("-----[FrontServlet] init 시작-----");
 		String handlerMapperType = config.getInitParameter("handlerMapper");
-		System.out.println("handlerMapperType :\t"+handlerMapperType); 
+//		System.out.println("handlerMapperType :\t"+handlerMapperType); 
 		// kr.or.ddit.controller.HandlerMapper ( web.xml에서 파싱)
 		try {
 

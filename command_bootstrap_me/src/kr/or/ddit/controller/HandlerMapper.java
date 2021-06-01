@@ -27,7 +27,7 @@ public class HandlerMapper {
 			String command = it.next();
 			System.out.println("command : " + command); // /index.do
 			String actionClassName=rbHome.getString(command);
-			System.out.println("actionClassName : "+actionClassName); // kr.or.ddit.handler.MainMenuHandler
+//			System.out.println("actionClassName : "+actionClassName); // kr.or.ddit.handler.MainMenuHandler
 			
 			try {
 			Class<?> actionClass = Class.forName(actionClassName);
@@ -45,7 +45,7 @@ public class HandlerMapper {
 					String paramType=method.getParameterTypes()[0].getName();
 					
 					// 인자 추출
-					System.out.println(method.getParameterTypes()[0]); // interface kr.or.ddit.service.MenuService
+//					System.out.println(method.getParameterTypes()[0]); // interface kr.or.ddit.service.MenuService
 					System.out.println(method.getParameterTypes()[0].getName()); // kr.or.ddit.service.MenuService
 					
 					
@@ -56,7 +56,7 @@ public class HandlerMapper {
 					try {
 						method.invoke(commandAction, ApplicationContext.getApplicationContext().get(paramType));
 						System.out.println("[HandlerMapper : invoke] : "+ApplicationContext.getApplicationContext().get(paramType));
-						System.out.println("kr.or.ddit.service.MenuServiceImpl@72d5d13d");
+//						kr.or.ddit.service.MenuServiceImpl@72d5d13d
 					}catch(Exception e) {
 						e.printStackTrace();
 						throw e;
@@ -64,7 +64,7 @@ public class HandlerMapper {
 				}
 			}
 				commandMap.put(command, commandAction);
-				System.out.println("[HandlerMapper] : "+command+":"+commandAction+"가 준비되었습니다");
+				System.out.println("[HandlerMapper] : "+command+" : "+commandAction+"가 준비되었습니다");
 			}catch(ClassNotFoundException e) {
 				System.out.println("[HandlerMapper] : "+actionClassName+"이 존재X");
 				throw e;

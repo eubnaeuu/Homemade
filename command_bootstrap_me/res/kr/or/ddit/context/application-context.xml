@@ -9,6 +9,10 @@
 	<!-- Repository Layer -->
 	<bean id="menuDAO"  class="kr.or.ddit.dao.MenuDAOImpl" />
 	<bean id="memberDAO"  class="kr.or.ddit.dao.MemberDAOImpl" />
+	<bean id="myUtils"  class="kr.or.ddit.util.MyUtils" />
+
+	<bean id="noticeDAO"  class="kr.or.ddit.dao.NoticeDAOImpl" />
+	
 	
 	
 	<!-- 가능 -->
@@ -22,7 +26,12 @@
 	<bean id="memberService" class="kr.or.ddit.service.MemberServiceImpl">
 		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
 		<property name="memberDAO" ref-value="memberDAO" />
+		<property name="myUtils" ref-value="myUtils" />
 	</bean>
 	
+	<bean id="noticeService" class="kr.or.ddit.service.NoticeServiceImpl">
+		<property name="sqlSessionFactory" ref-value="sqlSessionFactory" />
+		<property name="noticeDAO" ref-value="noticeDAO" />
+	</bean>
 	
 </beans>

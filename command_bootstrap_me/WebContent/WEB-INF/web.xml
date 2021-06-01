@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+<!-- Listener -->
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:kr/or/ddit/context/application-context.xml</param-value>
 	</context-param>
-
 	<listener>
 		<listener-class>kr.or.ddit.listener.ApplicationContextInitListener</listener-class>
 	</listener>
+
+<!-- Filter -->
 
 	<filter>
 		<filter-name>Set Character Encoding</filter-name>
@@ -34,7 +36,23 @@
 		<filter-name>sitemesh</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<filter>
+		<filter-name>loginCheckFilter</filter-name>
+		<filter-class>kr.or.ddit.filter.LoginCheckFilter</filter-class>
+		<init-param>
+			<param-name>exclude</param-name>
+			<param-value>login,resources</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginCheckFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
+
+
+<!-- Servlet -->
 
 	<servlet>
 		<servlet-name>FrontServlet</servlet-name>
@@ -49,5 +67,4 @@
 		<servlet-name>FrontServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-
 </web-app>

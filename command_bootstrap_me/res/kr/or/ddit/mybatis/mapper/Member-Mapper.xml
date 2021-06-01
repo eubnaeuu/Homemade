@@ -14,17 +14,17 @@
 	
 	<select id="selectMember" resultType="member">
 		SELECT
-			ID 			 id
-			,PWD         pwd
-			,EMAIL       email
-			,PICTURE     picture
-			,ENABLED     enabled
-			,REGDATE     regDate
-			,PHONE       phone
-			,NAME        name
-			,REGISTER    register
-			,ADDRESS     address
-			,AUTHORITY   authority
+			ID				id
+			,PWD			pwd
+			,EMAIL			email
+			,PICTURE		picture
+			,ENABLED		enabled
+			,REGDATE		regDate
+			,PHONE			phone
+			,NAME			name
+			,REGISTER		register
+			,ADDRESS		address
+			,AUTHORITY		authority
 		FROM MEMBER
         WHERE 1=1
 	</select>
@@ -35,38 +35,39 @@
 		FROM MEMBER
 	</select>
 	
+	
 	<update id="updateMember" parameterType="member">
 		UPDATE MEMBER
 		SET
-			ID = #{id}
-        <if test="pwd == null">
+			ID = ID
+		<if test="pwd == null">
 			,PWD = #{pwd}
 		</if>	
-        <if test="email == null">
+		<if test="email == null">
 			,EMAIL = #{email}
 		</if>
-        <if test="picture == null">
+		<if test="picture == null">
 			,PICTURE = #{picture}
 		</if>	
-        <if test="enabled == null">
+		<if test="enabled == null">
 			,ENABLED = #{enabled}
 		</if>	
-        <if test="regDate == null">
+		<if test="regDate == null">
 			,REGDATE = #{regDate}
 		</if>	
-        <if test="phone == null">
+		<if test="phone == null">
 			,PHONE = #{phone}
 		</if>	
-        <if test="name == null">
+		<if test="name == null">
 			,NAME = #{name}
 		</if>	
-        <if test="register == null">
+		<if test="register == null">
 			,REGISTER = #{register}
 		</if>	
-        <if test="address == null">
+		<if test="address == null">
 			,ADDRESS = #{address}
 		</if>	
-        <if test="authority == null">
+		<if test="authority == null">
 			,AUTHORITY = #{authority}
 		</if> 
 		WHERE ID = #{id}
@@ -106,5 +107,46 @@
 		FROM MEMBER
 		WHERE ID = #{id}
 	</delete>	
+	
+	
+	
+	
+	
+	
+	
+	<select id="selectMemberList" resultType="member">
+		SELECT
+			*
+		FROM MEMBER
+	</select>
+	
+	<sql id="search">
+		<if test="searchType == 'i'.toString()">
+			and id like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'p'.toString()">
+			and phone like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'e'.toString()">
+			and email like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+	<select id="selectSearchMemberList" resultType="member">
+		SELECT
+		*
+		FROM MEMBER
+		WHERE ID IS NOT NULL
+		<include refid="search" />
+		ORDER BY REGDATE DESC
+	</select>
+	<select id="selectSearchMemberListCount" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM MEMBER
+		WHERE ID IS NOT NULL
+		<include refid="search" />
+		ORDER BY REGDATE DESC
+	</select>
 	
 </mapper>

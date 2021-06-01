@@ -24,7 +24,7 @@ public class ApplicationContextInitListener implements ServletContextListener {
 
 //		System.out.println("param-value : "+ctx.getInitParameter("contextConfigLocation"));
 		String beanConfigXml = ctx.getInitParameter("contextConfigLocation");
-		System.out.println("ctx.getInitParameter : "+ctx.getInitParameter("contextConfigLocation"));
+//		System.out.println("ctx.getInitParameter('contextConfigLocation') : "+beanConfigXml);
 
     	if(beanConfigXml == null) return;
 
@@ -75,8 +75,8 @@ public class ApplicationContextInitListener implements ServletContextListener {
 				Node bean = beans.item(i);
 				if (bean.getNodeType() == Node.ELEMENT_NODE) {
 					Element eleBean = (Element) bean;
-
 					NodeList properties = bean.getChildNodes();
+					System.out.println(eleBean.getAttribute("id"));
 					for (int j = 0; j < properties.getLength(); j++) {
 						Node property = properties.item(j);
 						if (property.getNodeType() == Node.ELEMENT_NODE) {
@@ -84,7 +84,7 @@ public class ApplicationContextInitListener implements ServletContextListener {
 							String name = ele.getAttribute("name");
 							String ref = ele.getAttribute("ref-value");
 
-							System.out.printf("name= %s, ref- value=%s\n", name, ref);
+//							System.out.printf("name= %s, ref- value=%s\n", name, ref);
 							
 							String setMethodName = "set" + name.substring(0,1).toUpperCase()
 									+ name.substring(1);

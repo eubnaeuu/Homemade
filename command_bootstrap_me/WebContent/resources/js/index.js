@@ -8,7 +8,7 @@ function subMenu(mcode){
 				printData(data, $('.subMenuList'),$('#subMenu-list-template'),'.subMenu');
 			});
 		}else {
-			$('.subMenuList').html("");				
+			$('.subMenuList').html("");
 		}
 	}
 	
